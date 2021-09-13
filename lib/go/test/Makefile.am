@@ -52,7 +52,8 @@ gopath: $(THRIFT) $(THRIFTTEST) \
 				EqualsTest.thrift \
 				ConflictArgNamesTest.thrift \
 				ConstOptionalFieldImport.thrift \
-				ConstOptionalField.thrift
+				ConstOptionalField.thrift \
+				ValidateTest.thrift
 	mkdir -p gopath/src
 	grep -v list.*map.*list.*map $(THRIFTTEST) | grep -v 'set<Insanity>' > ThriftTest.thrift
 	$(THRIFT) $(THRIFTARGS) -r IncludesTest.thrift
@@ -84,6 +85,7 @@ gopath: $(THRIFT) $(THRIFTTEST) \
 	$(THRIFT) $(THRIFTARGS) EqualsTest.thrift
 	$(THRIFT) $(THRIFTARGS) ConflictArgNamesTest.thrift
 	$(THRIFT) $(THRIFTARGS) -r ConstOptionalField.thrift
+	$(THRIFT) $(THRIFTARGS),generate_validator ValidateTest.thrift
 	ln -nfs ../../tests gopath/src/tests
 	cp -r ./dontexportrwtest gopath/src
 	touch gopath
@@ -148,4 +150,5 @@ EXTRA_DIST = \
 	ServicesTest.thrift \
 	TypedefFieldTest.thrift \
 	UnionBinaryTest.thrift \
-	UnionDefaultValueTest.thrift
+	UnionDefaultValueTest.thrift \
+	ValidateTest.thrift

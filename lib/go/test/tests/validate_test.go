@@ -17,34 +17,24 @@
  * under the License.
  */
 
-#ifndef T_ENUM_VALUE_H
-#define T_ENUM_VALUE_H
+package tests
 
-#include "thrift/parse/t_doc.h"
-#include <map>
-#include <string>
+import (
+	"testing"
+	"github.com/apache/thrift/lib/go/test/gopath/src/validatetest"
+)
 
-/**
- * A constant. These are used inside of enum definitions. Constants are just
- * symbol identifiers that may or may not have an explicit value associated
- * with them.
- *
- */
-class t_enum_value : public t_doc {
-public:
-  t_enum_value(std::string name, int value) : name_(name), value_(value) {}
-
-  ~t_enum_value() override = default;
-
-  const std::string& get_name() const { return name_; }
-
-  int get_value() const { return value_; }
-
-  std::map<std::string, std::vector<std::string>> annotations_;
-
-private:
-  std::string name_;
-  int value_;
-};
-
-#endif
+func TestValidator(t *testing.T) {
+	bt := validatetest.NewBasicTest()
+	if err := bt.IsValid(); err != nil {
+		t.Fatal(err)
+	}
+	frt := validatetest.NewFieldReferenceTest()
+	if err := frt.IsValid(); err != nil {
+		t.Fatal(err)
+	}
+	vft := validatetest.NewValidationFunctionTest()
+	if err := vft.IsValid(); err != nil {
+		t.Fatal(err)
+	}
+}

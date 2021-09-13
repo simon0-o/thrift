@@ -348,6 +348,10 @@ public:
            || ttype->is_enum();
   }
 
+  bool is_deprecated(const std::map<std::string, std::vector<std::string>>& annotations) {
+    return annotations.find("deprecated") != annotations.end();
+  }
+
   bool is_deprecated(const std::map<std::string, std::string>& annotations) {
     return annotations.find("deprecated") != annotations.end();
   }

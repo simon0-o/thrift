@@ -1927,13 +1927,13 @@ void t_netstd_generator::generate_service_interface(ostream& out, t_service* tse
         }
 
         auto iter = (*f_iter)->annotations_.find("deprecated");
-        if( (*f_iter)->annotations_.end() != iter) {
-          out << indent() << "[Obsolete";
-          // empty annotation values end up with "1" somewhere, ignore these as well
-          if ((iter->second.length() > 0) && (iter->second != "1")) {
-            out << "(" << make_csharp_string_literal(iter->second) << ")";
-          }
-          out << "]" << endl;
+        if( (*f_iter)->annotations_.end() != iter && !iter->second.empty()) {
+            out << indent() << "[Obsolete";
+            // empty annotation values end up with "1" somewhere, ignore these as well
+            if ((iter->second.back().length() > 0) && (iter->second.back() != "1")) {
+                out << "(" << make_csharp_string_literal(iter->second.back()) << ")";
+            }
+            out << "]" << endl;
         }
 
         out << indent() << function_signature_async(*f_iter) << ";" << endl << endl;
